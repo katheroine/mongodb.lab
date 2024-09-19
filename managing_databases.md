@@ -7,6 +7,15 @@
 ### Displaying databases
 
 ```
+> show dbs
+admin              0.000GB
+config             0.000GB
+local              0.000GB
+```
+
+### Displaying actually using database
+
+```
 > db
 test
 ```
@@ -14,6 +23,6 @@ test
 ### Creating and choosing databases
 
 ```
-> use query
-switched to db query
+> use quote_mongodb_lab
+switched to db quote_mongodb_lab
 ```
