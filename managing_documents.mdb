@@ -34,6 +34,41 @@ db.user.insertMany([
     }
 ]);
 
+db.user.updateOne(
+    {
+        "login": "pumpkin"
+    },
+    {
+        $set: {
+            "login": "carrot"
+        }
+    }
+);
+
+db.user.updateOne(
+    {
+        "login": "pinecone"
+    },
+    {
+        $set: {
+            "id": 5,
+            "login": "carrot"
+        }
+    },
+    {
+        upsert: true
+    }
+);
+
+db.user.updateMany(
+    {},
+    {
+        $inc: {
+            "id": 1
+        }
+    }
+);
+
 db.user.deleteOne({"id": 3});
 
 db.user.deleteMany({});

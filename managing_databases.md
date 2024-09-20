@@ -32,3 +32,12 @@ test
 > use quote_mongodb_lab
 switched to db quote_mongodb_lab
 ```
+
+### Deleting database
+
+**`db.dropDatabase(<database>)`**
+
+```
+> db.dropDatabase();
+{ "dropped" : "quote_mongodb_lab", "ok" : 1 }
+```
