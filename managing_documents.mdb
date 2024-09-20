@@ -33,3 +33,7 @@ db.user.insertMany([
         "confirmed": false
     }
 ]);
+
+db.user.deleteOne({"id": 3});
+
+db.user.deleteMany({});
