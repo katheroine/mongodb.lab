@@ -1,0 +1,35 @@
+db.medium_type.insertOne({
+    "codename": "BOOK",
+    "description": "A book"
+});
+
+db.user.insertMany([
+    {
+        "id": 1,
+        "login": "tigger",
+        "groups": [
+            "bloggers",
+            "readers",
+            "hobbysts"
+        ],
+        "confirmed": true
+    },
+    {
+        "id": 2,
+        "login": "pumpkin",
+        "groups": [
+            "writers",
+            "academics"
+        ],
+        "confirmed": true
+    },
+    {
+        "id": 3,
+        "login": "monsterro",
+        "groups": [
+            "hobbyst",
+            "readers"
+        ],
+        "confirmed": false
+    }
+]);
