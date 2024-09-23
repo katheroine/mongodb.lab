@@ -49,16 +49,16 @@ cover_type
 
 ```
 > db.quote.insertOne({
-...     "id": 1,
-...     "owner": "Agnes Graham",
-...     "author": "Gabriel Gacia Marquez",
-...     "source": "One Hundred Years of Solitude",
-...     "content": "There is always something left to love.",
-...     "rating": 10
+...     id: 1,
+...     owner: "Agnes Graham",
+...     author: "Gabriel Gacia Marquez",
+...     source: "One Hundred Years of Solitude",
+...     content: "There is always something left to love.",
+...     rating: 10
 ... });
 {
 	"acknowledged" : true,
-	"insertedId" : ObjectId("66ec1570dc5bbdfcbff2ddfe")
+	"insertedId" : ObjectId("66edd44a50304329da899dba")
 }
 > show collections
 cover_type
@@ -70,29 +70,32 @@ quote
 **`db.<collection>.inserMany(<documents>)`**
 
 ```
+> show collections
+cover_type
+quote
 > db.cite.insertMany([
 ...     {
-...         "id": 1,
-...         "owner": "Magnus Cromwell",
-...         "author": "Umberto Eco",
-...         "source": "Foucault's Pendulum",
-...         "content": "We are formed by little scraps of wisdom.",
-...         "rating": 9
+...         id: 1,
+...         owner: "Magnus Cromwell",
+...         author: "Umberto Eco",
+...         source: "Foucault's Pendulum",
+...         content: "We are formed by little scraps of wisdom.",
+...         rating: 9
 ...     },
 ...     {
-...         "id": 2,
-...         "owner": "Amelia Rosedale",
-...         "author": "Gustav Meyrink",
-...         "source": "The Golem",
-...         "content": "In the darkness, we find our true selves.",
-...         "rating": 7
+...         id: 2,
+...         owner: "Amelia Rosedale",
+...         author: "Gustav Meyrink",
+...         source: "The Golem",
+...         content: "In the darkness, we find our true selves.",
+...         rating: 7
 ...     }
 ... ]);
 {
 	"acknowledged" : true,
 	"insertedIds" : [
-		ObjectId("66ec23ebdc5bbdfcbff2de00"),
-		ObjectId("66ec23ebdc5bbdfcbff2de01")
+		ObjectId("66f1453ce0d4b8f6440ce966"),
+		ObjectId("66f1453ce0d4b8f6440ce967")
 	]
 }
 > show collections

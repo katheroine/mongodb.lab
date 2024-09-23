@@ -11,15 +11,15 @@
 
 ```
 > db.medium_type.insertOne({
-...     "codename": "BOOK",
-...     "description": "A book"
+...     codename: "BOOK",
+...     description: "A book"
 ... });
 {
 	"acknowledged" : true,
-	"insertedId" : ObjectId("66ec3cf0dc5bbdfcbff2de02")
+	"insertedId" : ObjectId("66f145f9e0d4b8f6440ce968")
 }
 > db.medium_type.find();
-{ "_id" : ObjectId("66ec3cf0dc5bbdfcbff2de02"), "codename" : "BOOK", "description" : "A book" }
+{ "_id" : ObjectId("66f145f9e0d4b8f6440ce968"), "codename" : "BOOK", "description" : "A book" }
 ```
 
 **Inserting multiple documents**
@@ -29,46 +29,46 @@
 ```
 > db.user.insertMany([
 ...     {
-...         "id": 1,
-...         "login": "tigger",
-...         "groups": [
+...         id: 1,
+...         login: "tigger",
+...         groups: [
 ...             "bloggers",
 ...             "readers",
 ...             "hobbysts"
 ...         ],
-...         "confirmed": true
+...         confirmed: true
 ...     },
 ...     {
-...         "id": 2,
-...         "login": "pumpkin",
-...         "groups": [
+...         id: 2,
+...         login: "pumpkin",
+...         groups: [
 ...             "writers",
 ...             "academics"
 ...         ],
-...         "confirmed": true
+...         confirmed: true
 ...     },
 ...     {
-...         "id": 3,
-...         "login": "monsterro",
-...         "groups": [
+...         id: 3,
+...         login: "monsterro",
+...         groups: [
 ...             "hobbyst",
 ...             "readers"
 ...         ],
-...         "confirmed": false
+...         confirmed: false
 ...     }
 ... ]);
 {
 	"acknowledged" : true,
 	"insertedIds" : [
-		ObjectId("66ec4ea150304329da899db4"),
-		ObjectId("66ec4ea150304329da899db5"),
-		ObjectId("66ec4ea150304329da899db6")
+		ObjectId("66f1462ae0d4b8f6440ce969"),
+		ObjectId("66f1462ae0d4b8f6440ce96a"),
+		ObjectId("66f1462ae0d4b8f6440ce96b")
 	]
 }
 > db.user.find();
-{ "_id" : ObjectId("66ec4ea150304329da899db4"), "id" : 1, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbysts" ], "confirmed" : true }
-{ "_id" : ObjectId("66ec4ea150304329da899db5"), "id" : 2, "login" : "pumpkin", "groups" : [ "writers", "academics" ], "confirmed" : true }
-{ "_id" : ObjectId("66ec4ea150304329da899db6"), "id" : 3, "login" : "monsterro", "groups" : [ "hobbyst", "readers" ], "confirmed" : false }
+{ "_id" : ObjectId("66f1462ae0d4b8f6440ce969"), "id" : 1, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbysts" ], "confirmed" : true }
+{ "_id" : ObjectId("66f1462ae0d4b8f6440ce96a"), "id" : 2, "login" : "pumpkin", "groups" : [ "writers", "academics" ], "confirmed" : true }
+{ "_id" : ObjectId("66f1462ae0d4b8f6440ce96b"), "id" : 3, "login" : "monsterro", "groups" : [ "hobbyst", "readers" ], "confirmed" : false }
 ```
 
 ### Updating documents
@@ -82,19 +82,19 @@ If many documents mets the condition, there will be updated only first of them.
 ```
 > db.user.updateOne(
 ...     {
-...         "login": "pumpkin"
+...         login: "pumpkin"
 ...     },
 ...     {
 ...         $set: {
-...             "login": "carrot"
+...             login: "carrot"
 ...         }
 ...     }
 ... );
 { "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
 > db.user.find();
-{ "_id" : ObjectId("66eda56150304329da899db7"), "id" : 1, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbysts" ], "confirmed" : true }
-{ "_id" : ObjectId("66eda56150304329da899db8"), "id" : 2, "login" : "carrot", "groups" : [ "writers", "academics" ], "confirmed" : true }
-{ "_id" : ObjectId("66eda56150304329da899db9"), "id" : 3, "login" : "monsterro", "groups" : [ "hobbyst", "readers" ], "confirmed" : false }
+{ "_id" : ObjectId("66f1462ae0d4b8f6440ce969"), "id" : 1, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbysts" ], "confirmed" : true }
+{ "_id" : ObjectId("66f1462ae0d4b8f6440ce96a"), "id" : 2, "login" : "carrot", "groups" : [ "writers", "academics" ], "confirmed" : true }
+{ "_id" : ObjectId("66f1462ae0d4b8f6440ce96b"), "id" : 3, "login" : "monsterro", "groups" : [ "hobbyst", "readers" ], "confirmed" : false }
 ```
 
 *Upsert*
@@ -104,12 +104,12 @@ If the document with the given condition cannot be found, it can be created inst
 ```
 > db.user.updateOne(
 ...     {
-...         "login": "pinecone"
+...         login: "pinecone"
 ...     },
 ...     {
 ...         $set: {
-...             "id": 4,
-...             "login": "carrot"
+...             id: 5,
+...             login: "carrot"
 ...         }
 ...     },
 ...     {
@@ -120,13 +120,13 @@ If the document with the given condition cannot be found, it can be created inst
 	"acknowledged" : true,
 	"matchedCount" : 0,
 	"modifiedCount" : 0,
-	"upsertedId" : ObjectId("66edbeae75c384a01106c501")
+	"upsertedId" : ObjectId("66f1473b134bc0eaaca9c0c4")
 }
 > db.user.find();
-{ "_id" : ObjectId("66eda56150304329da899db7"), "id" : 1, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbysts" ], "confirmed" : true }
-{ "_id" : ObjectId("66eda56150304329da899db8"), "id" : 2, "login" : "carrot", "groups" : [ "writers", "academics" ], "confirmed" : true }
-{ "_id" : ObjectId("66eda56150304329da899db9"), "id" : 3, "login" : "monsterro", "groups" : [ "hobbyst", "readers" ], "confirmed" : false }
-{ "_id" : ObjectId("66edbeae75c384a01106c501"), "login" : "carrot", "id" : 4 }
+{ "_id" : ObjectId("66f1462ae0d4b8f6440ce969"), "id" : 1, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbysts" ], "confirmed" : true }
+{ "_id" : ObjectId("66f1462ae0d4b8f6440ce96a"), "id" : 2, "login" : "carrot", "groups" : [ "writers", "academics" ], "confirmed" : true }
+{ "_id" : ObjectId("66f1462ae0d4b8f6440ce96b"), "id" : 3, "login" : "monsterro", "groups" : [ "hobbyst", "readers" ], "confirmed" : false }
+{ "_id" : ObjectId("66f1473b134bc0eaaca9c0c4"), "login" : "carrot", "id" : 5 }
 ```
 
 **Updating multiple documents**
@@ -138,16 +138,16 @@ If the document with the given condition cannot be found, it can be created inst
 ...     {},
 ...     {
 ...         $inc: {
-...             "id": 1
+...             id: 1
 ...         }
 ...     }
 ... );
-{ "acknowledged" : true, "matchedCount" : 4, "modifiedCount" : 3 }
+{ "acknowledged" : true, "matchedCount" : 4, "modifiedCount" : 4 }
 > db.user.find();
-{ "_id" : ObjectId("66eda56150304329da899db7"), "id" : 2, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbysts" ], "confirmed" : true }
-{ "_id" : ObjectId("66eda56150304329da899db8"), "id" : 3, "login" : "carrot", "groups" : [ "writers", "academics" ], "confirmed" : true }
-{ "_id" : ObjectId("66eda56150304329da899db9"), "id" : 4, "login" : "monsterro", "groups" : [ "hobbyst", "readers" ], "confirmed" : false }
-{ "_id" : ObjectId("66edbeae75c384a01106c501"), "login" : "carrot", "id" : 5 }
+{ "_id" : ObjectId("66f1462ae0d4b8f6440ce969"), "id" : 2, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbysts" ], "confirmed" : true }
+{ "_id" : ObjectId("66f1462ae0d4b8f6440ce96a"), "id" : 3, "login" : "carrot", "groups" : [ "writers", "academics" ], "confirmed" : true }
+{ "_id" : ObjectId("66f1462ae0d4b8f6440ce96b"), "id" : 4, "login" : "monsterro", "groups" : [ "hobbyst", "readers" ], "confirmed" : false }
+{ "_id" : ObjectId("66f1473b134bc0eaaca9c0c4"), "login" : "carrot", "id" : 6 }
 ```
 
 ### Deleting documents
@@ -159,12 +159,12 @@ If the document with the given condition cannot be found, it can be created inst
 If many documents mets the condition, there will be deleted only first of them.
 
 ```
-> db.user.deleteOne({"id": 4});
+> db.user.deleteOne({id: 4});
 { "acknowledged" : true, "deletedCount" : 1 }
 > db.user.find();
-{ "_id" : ObjectId("66eda56150304329da899db7"), "id" : 2, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbysts" ], "confirmed" : true }
-{ "_id" : ObjectId("66eda56150304329da899db8"), "id" : 3, "login" : "carrot", "groups" : [ "writers", "academics" ], "confirmed" : true }
-{ "_id" : ObjectId("66edbeae75c384a01106c501"), "login" : "carrot", "id" : 5 }
+{ "_id" : ObjectId("66f1462ae0d4b8f6440ce969"), "id" : 2, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbysts" ], "confirmed" : true }
+{ "_id" : ObjectId("66f1462ae0d4b8f6440ce96a"), "id" : 3, "login" : "carrot", "groups" : [ "writers", "academics" ], "confirmed" : true }
+{ "_id" : ObjectId("66f1473b134bc0eaaca9c0c4"), "login" : "carrot", "id" : 6 }
 ```
 
 **Deleting multiple documents**

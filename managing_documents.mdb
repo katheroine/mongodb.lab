@@ -1,58 +1,58 @@
 db.medium_type.insertOne({
-    "codename": "BOOK",
-    "description": "A book"
+    codename: "BOOK",
+    description: "A book"
 });
 
 db.user.insertMany([
     {
-        "id": 1,
-        "login": "tigger",
-        "groups": [
+        id: 1,
+        login: "tigger",
+        groups: [
             "bloggers",
             "readers",
             "hobbysts"
         ],
-        "confirmed": true
+        confirmed: true
     },
     {
-        "id": 2,
-        "login": "pumpkin",
-        "groups": [
+        id: 2,
+        login: "pumpkin",
+        groups: [
             "writers",
             "academics"
         ],
-        "confirmed": true
+        confirmed: true
     },
     {
-        "id": 3,
-        "login": "monsterro",
-        "groups": [
+        id: 3,
+        login: "monsterro",
+        groups: [
             "hobbyst",
             "readers"
         ],
-        "confirmed": false
+        confirmed: false
     }
 ]);
 
 db.user.updateOne(
     {
-        "login": "pumpkin"
+        login: "pumpkin"
     },
     {
         $set: {
-            "login": "carrot"
+            login: "carrot"
         }
     }
 );
 
 db.user.updateOne(
     {
-        "login": "pinecone"
+        login: "pinecone"
     },
     {
         $set: {
-            "id": 5,
-            "login": "carrot"
+            id: 5,
+            login: "carrot"
         }
     },
     {
@@ -64,11 +64,11 @@ db.user.updateMany(
     {},
     {
         $inc: {
-            "id": 1
+            id: 1
         }
     }
 );
 
-db.user.deleteOne({"id": 3});
+db.user.deleteOne({id: 4});
 
 db.user.deleteMany({});

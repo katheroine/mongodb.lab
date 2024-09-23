@@ -1,29 +1,29 @@
 db.createCollection("cover_type");
 
 db.quote.insertOne({
-    "id": 1,
-    "owner": "Agnes Graham",
-    "author": "Gabriel Gacia Marquez",
-    "source": "One Hundred Years of Solitude",
-    "content": "There is always something left to love.",
-    "rating": 10
+    id: 1,
+    owner: "Agnes Graham",
+    author: "Gabriel Gacia Marquez",
+    source: "One Hundred Years of Solitude",
+    content: "There is always something left to love.",
+    rating: 10
 });
 
 db.cite.insertMany([
     {
-        "id": 1,
-        "owner": "Magnus Cromwell",
-        "author": "Umberto Eco",
-        "source": "Foucault's Pendulum",
-        "content": "We are formed by little scraps of wisdom.",
-        "rating": 9
+        id: 1,
+        owner: "Magnus Cromwell",
+        author: "Umberto Eco",
+        source: "Foucault's Pendulum",
+        content: "We are formed by little scraps of wisdom.",
+        rating: 9
     },
     {
-        "id": 2,
-        "owner": "Amelia Rosedale",
-        "author": "Gustav Meyrink",
-        "source": "The Golem",
-        "content": "In the darkness, we find our true selves.",
-        "rating": 7
+        id: 2,
+        owner: "Amelia Rosedale",
+        author: "Gustav Meyrink",
+        source: "The Golem",
+        content: "In the darkness, we find our true selves.",
+        rating: 7
     }
 ]);
