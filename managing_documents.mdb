@@ -52,7 +52,7 @@ db.user.updateOne(
     {
         $set: {
             id: 5,
-            login: "carrot"
+            login: "pineapple"
         }
     },
     {
@@ -65,6 +65,57 @@ db.user.updateMany(
     {
         $inc: {
             id: 1
+        }
+    }
+);
+
+db.user.updateOne(
+    {
+        login: "carrot"
+    },
+    {
+        $set: {
+            confirmed: false
+        }
+    }
+);
+
+db.user.updateOne(
+    {
+        login: "pineapple"
+    },
+    {
+        $set: {
+            confirmed: true
+        }
+    }
+);
+
+db.user.updateMany(
+    {},
+    {
+        $set: {
+            points: 0
+        }
+    }
+);
+
+db.user.updateOne(
+    {
+        login: "carrot"
+    },
+    {
+        $unset: {
+            points: ""
+        }
+    }
+);
+
+db.user.updateMany(
+    {},
+    {
+        $unset: {
+            confirmed: ""
         }
     }
 );
