@@ -156,7 +156,7 @@ If the document with the given condition cannot be found, it can be created inst
 
 * `$set` - sets the value of a field
 
-It can be updating value of the existing field of the existing document.
+**Updating value of the existing field of the existing document**
 
 ```
 > db.user.updateOne(
@@ -177,7 +177,7 @@ It can be updating value of the existing field of the existing document.
 { "_id" : ObjectId("66f1599e134bc0eaaca9c12d"), "login" : "pineapple", "id" : 6 }
 ```
 
-It can be adding a new field to the exisiting document.
+**Adding a new field to the exisiting document**
 
 ```
 > db.user.updateOne(
@@ -198,7 +198,7 @@ It can be adding a new field to the exisiting document.
 { "_id" : ObjectId("66f1599e134bc0eaaca9c12d"), "login" : "pineapple", "id" : 6, "confirmed" : true }
 ```
 
-It can be adding a new field to all documents.
+**Adding a new field to all documents**
 
 ```
 > db.user.updateMany(
@@ -219,7 +219,7 @@ It can be adding a new field to all documents.
 
 * `$unset` - removes the field from the document
 
-It can be removing the field of one document.
+**Removing the field of one document**
 
 ```
 > db.user.updateOne(
@@ -240,7 +240,7 @@ It can be removing the field of one document.
 { "_id" : ObjectId("66f1599e134bc0eaaca9c12d"), "login" : "pineapple", "id" : 6, "confirmed" : true, "points" : 0 }
 ```
 
-It can be removing the field of all documents.
+**Removing the field of all documents**
 
 ```
 > db.user.updateMany(
@@ -259,9 +259,226 @@ It can be removing the field of all documents.
 { "_id" : ObjectId("66f1599e134bc0eaaca9c12d"), "login" : "pineapple", "id" : 6, "points" : 0 }
 ```
 
-* `$currentDate`: Sets the field value to the current date
-* `$inc`: Increments the field value
-* `$rename`: Renames the field
+* `$rename` - renames the field
+
+**Renaming the field of one document**
+
+```
+> db.user.updateOne(
+...     {
+...         login: "tigger"
+...     },
+...     {
+...         $rename: {
+...             points: "credits"
+...         }
+...     }
+... );
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.user.find();
+{ "_id" : ObjectId("66f1599ee0d4b8f6440ce972"), "id" : 2, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbysts" ], "credits" : 0 }
+{ "_id" : ObjectId("66f1599ee0d4b8f6440ce973"), "id" : 3, "login" : "carrot", "groups" : [ "writers", "academics" ] }
+{ "_id" : ObjectId("66f1599ee0d4b8f6440ce974"), "id" : 4, "login" : "monsterro", "groups" : [ "hobbyst", "readers" ], "points" : 0 }
+{ "_id" : ObjectId("66f1599e134bc0eaaca9c12d"), "login" : "pineapple", "id" : 6, "points" : 0 }
+```
+
+**Renaming the field of all documents**
+
+```
+> db.user.updateMany(
+...     {},
+...     {
+...         $rename: {
+...             login: "nick"
+...         }
+...     }
+... );
+{ "acknowledged" : true, "matchedCount" : 4, "modifiedCount" : 4 }
+>
+> db.user.find();
+{ "_id" : ObjectId("66f1599ee0d4b8f6440ce972"), "id" : 2, "groups" : [ "bloggers", "readers", "hobbysts" ], "credits" : 0, "nick" : "tigger" }
+{ "_id" : ObjectId("66f1599ee0d4b8f6440ce973"), "id" : 3, "groups" : [ "writers", "academics" ], "nick" : "carrot" }
+{ "_id" : ObjectId("66f1599ee0d4b8f6440ce974"), "id" : 4, "groups" : [ "hobbyst", "readers" ], "points" : 0, "nick" : "monsterro" }
+{ "_id" : ObjectId("66f1599e134bc0eaaca9c12d"), "id" : 6, "points" : 0, "nick" : "pineapple" }
+```
+
+* `$inc` - increments the field value
+
+```
+> db.user.updateMany(
+...     {},
+...     {
+...         $inc: {
+...             credits: 1,
+...             points: 2
+...         }
+...     }
+... );
+{ "acknowledged" : true, "matchedCount" : 4, "modifiedCount" : 4 }
+> db.user.find();
+{ "_id" : ObjectId("66f1599ee0d4b8f6440ce972"), "id" : 2, "groups" : [ "bloggers", "readers", "hobbysts" ], "credits" : 1, "nick" : "tigger", "points" : 2 }
+{ "_id" : ObjectId("66f1599ee0d4b8f6440ce973"), "id" : 3, "groups" : [ "writers", "academics" ], "nick" : "carrot", "credits" : 1, "points" : 2 }
+{ "_id" : ObjectId("66f1599ee0d4b8f6440ce974"), "id" : 4, "groups" : [ "hobbyst", "readers" ], "points" : 2, "nick" : "monsterro", "credits" : 1 }
+{ "_id" : ObjectId("66f1599e134bc0eaaca9c12d"), "id" : 6, "points" : 2, "nick" : "pineapple", "credits" : 1 }
+```
+
+* `$mul`- multiplies the value of a field by a number
+
+```
+> db.user.updateOne(
+...     {
+...         nick: "monsterro"
+...     },
+...     {
+...         $mul: {
+...             points: 3
+...         }
+...     }
+... );
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.user.find();
+{ "_id" : ObjectId("66f19c64e0d4b8f6440ce975"), "id" : 2, "groups" : [ "bloggers", "readers", "hobbysts" ], "credits" : 1, "nick" : "tigger", "points" : 2 }
+{ "_id" : ObjectId("66f19c64e0d4b8f6440ce976"), "id" : 3, "groups" : [ "writers", "academics" ], "nick" : "carrot", "credits" : 1, "points" : 2 }
+{ "_id" : ObjectId("66f19c64e0d4b8f6440ce977"), "id" : 4, "groups" : [ "hobbyst", "readers" ], "points" : 6, "nick" : "monsterro", "credits" : 1 }
+{ "_id" : ObjectId("66f19c64134bc0eaaca9c1bc"), "id" : 6, "points" : 2, "nick" : "pineapple", "credits" : 1 }
+```
+
+* `min` - updates the value of the field to a specified value if the specified value is less than the current value of the field
+
+```
+> db.user.updateOne(
+...     {
+...         nick: "monsterro"
+...     },
+...     {
+...         $min: {
+...             points: 7
+...         }
+...     }
+... );
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 0 }
+> db.user.find({nick: "monsterro"});
+{ "_id" : ObjectId("66f19c64e0d4b8f6440ce977"), "id" : 4, "groups" : [ "hobbyst", "readers" ], "points" : 6, "nick" : "monsterro", "credits" : 1 }
+```
+
+```
+> db.user.updateOne(
+...     {
+...         nick: "monsterro"
+...     },
+...     {
+...         $min: {
+...             points: 5
+...         }
+...     }
+... );
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.user.find({nick: "monsterro"});
+{ "_id" : ObjectId("66f19c64e0d4b8f6440ce977"), "id" : 4, "groups" : [ "hobbyst", "readers" ], "points" : 5, "nick" : "monsterro", "credits" : 1 }
+```
+
+* `max` - updates the value of the field to a specified value if the specified value is greater than the current value of the field
+
+```
+> db.user.updateOne(
+...     {
+...         nick: "monsterro"
+...     },
+...     {
+...         $max: {
+...             credits: 1
+...         }
+...     }
+... );
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 0 }
+> db.user.find({nick: "monsterro"});
+{ "_id" : ObjectId("66f19c64e0d4b8f6440ce977"), "id" : 4, "groups" : [ "hobbyst", "readers" ], "points" : 5, "nick" : "monsterro", "credits" : 1 }
+```
+
+```
+> db.user.updateOne(
+...     {
+...         nick: "monsterro"
+...     },
+...     {
+...         $max: {
+...             credits: 2
+...         }
+...     }
+... );
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.user.find({nick: "monsterro"});
+{ "_id" : ObjectId("66f19c64e0d4b8f6440ce977"), "id" : 4, "groups" : [ "hobbyst", "readers" ], "points" : 5, "nick" : "monsterro", "credits" : 2 }
+```
+
+* `$currentDate` - sets the field value to the current date
+
+```
+> db.user.updateMany(
+...     {},
+...     {
+...         $currentDate: {
+...             updated_at: {
+...                 $type: "timestamp"
+...             },
+...             last_access: {
+...                 $type: "date"
+...             }
+...         }
+...     }
+... );
+{ "acknowledged" : true, "matchedCount" : 4, "modifiedCount" : 4 }
+> db.user.find().pretty();
+{
+	"_id" : ObjectId("66f19c64e0d4b8f6440ce975"),
+	"id" : 2,
+	"groups" : [
+		"bloggers",
+		"readers",
+		"hobbysts"
+	],
+	"credits" : 1,
+	"nick" : "tigger",
+	"points" : 2,
+	"last_access" : ISODate("2024-09-23T18:10:12.655Z"),
+	"updated_at" : Timestamp(1727115012, 1)
+}
+{
+	"_id" : ObjectId("66f19c64e0d4b8f6440ce976"),
+	"id" : 3,
+	"groups" : [
+		"writers",
+		"academics"
+	],
+	"nick" : "carrot",
+	"credits" : 1,
+	"points" : 2,
+	"last_access" : ISODate("2024-09-23T18:10:12.655Z"),
+	"updated_at" : Timestamp(1727115012, 2)
+}
+{
+	"_id" : ObjectId("66f19c64e0d4b8f6440ce977"),
+	"id" : 4,
+	"groups" : [
+		"hobbyst",
+		"readers"
+	],
+	"points" : 5,
+	"nick" : "monsterro",
+	"credits" : 2,
+	"last_access" : ISODate("2024-09-23T18:10:12.655Z"),
+	"updated_at" : Timestamp(1727115012, 3)
+}
+{
+	"_id" : ObjectId("66f19c64134bc0eaaca9c1bc"),
+	"id" : 6,
+	"points" : 2,
+	"nick" : "pineapple",
+	"credits" : 1,
+	"last_access" : ISODate("2024-09-23T18:10:12.655Z"),
+	"updated_at" : Timestamp(1727115012, 4)
+}
+```
 
 **Array**
 

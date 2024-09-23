@@ -120,6 +120,105 @@ db.user.updateMany(
     }
 );
 
+db.user.updateOne(
+    {
+        login: "tigger"
+    },
+    {
+        $rename: {
+            points: "credits"
+        }
+    }
+);
+
+db.user.updateMany(
+    {},
+    {
+        $rename: {
+            login: "nick"
+        }
+    }
+);
+
+db.user.updateMany(
+    {},
+    {
+        $inc: {
+            credits: 1,
+            points: 2
+        }
+    }
+);
+
+db.user.updateOne(
+    {
+        nick: "monsterro"
+    },
+    {
+        $mul: {
+            points: 3
+        }
+    }
+);
+
+db.user.updateOne(
+    {
+        nick: "monsterro"
+    },
+    {
+        $min: {
+            points: 7
+        }
+    }
+);
+
+db.user.updateOne(
+    {
+        nick: "monsterro"
+    },
+    {
+        $min: {
+            points: 5
+        }
+    }
+);
+
+db.user.updateOne(
+    {
+        nick: "monsterro"
+    },
+    {
+        $max: {
+            credits: 1
+        }
+    }
+);
+
+db.user.updateOne(
+    {
+        nick: "monsterro"
+    },
+    {
+        $max: {
+            credits: 2
+        }
+    }
+);
+
+db.user.updateMany(
+    {},
+    {
+        $currentDate: {
+            updated_at: {
+                $type: "timestamp"
+            },
+            last_access: {
+                $type: "date"
+            }
+        }
+    }
+);
+
 db.user.deleteOne({id: 4});
 
 db.user.deleteMany({});
