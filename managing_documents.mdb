@@ -10,7 +10,7 @@ db.user.insertMany([
         groups: [
             "bloggers",
             "readers",
-            "hobbysts"
+            "hobbyists"
         ],
         confirmed: true
     },
@@ -214,6 +214,112 @@ db.user.updateMany(
             },
             last_access: {
                 $type: "date"
+            }
+        }
+    }
+);
+
+db.user.updateOne(
+    {
+        nick: "carrot"
+    },
+    {
+        $push: {
+            groups: "bloggers"
+        }
+    }
+);
+
+db.user.updateOne(
+    {
+        nick: "tigger"
+    },
+    {
+        $pop: {
+            groups: 1
+        }
+    }
+);
+
+db.user.updateOne(
+    {
+        nick: "tigger"
+    },
+    {
+        $pop: {
+            groups: -1
+        }
+    }
+);
+
+db.user.updateOne(
+    {
+        nick: "monsterro"
+    },
+    {
+        $pull: {
+            groups: "readers"
+        }
+    }
+);
+
+db.user.updateOne(
+    {
+        nick: "carrot"
+    },
+    {
+        $pullAll: {
+            groups: [
+                "writers",
+                "bloggers"
+            ]
+        }
+    }
+);
+
+db.user.updateOne(
+    {
+        nick: "tigger"
+    },
+    {
+        $addToSet: {
+            groups: [
+                "writers",
+                "hobbyists"
+            ]
+        }
+    }
+);
+
+db.user.updateOne(
+    {
+        nick: "tigger"
+    },
+    {
+        $addToSet: {
+            groups: {
+                $each: [
+                    "readers",
+                    "poets",
+                    "adepts"
+                ]
+            }
+        }
+    }
+);
+
+db.user.updateOne(
+    {
+        nick: "carrot"
+    },
+    {
+        $push: {
+            groups: {
+                $each: [
+                    "academics",
+                    "writers",
+                    "hobbyists"
+                ]
             }
         }
     }

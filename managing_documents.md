@@ -34,7 +34,7 @@
 ...         groups: [
 ...             "bloggers",
 ...             "readers",
-...             "hobbysts"
+...             "hobbyists"
 ...         ],
 ...         confirmed: true
 ...     },
@@ -66,7 +66,7 @@
 	]
 }
 > db.user.find();
-{ "_id" : ObjectId("66f1462ae0d4b8f6440ce969"), "id" : 1, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbysts" ], "confirmed" : true }
+{ "_id" : ObjectId("66f1462ae0d4b8f6440ce969"), "id" : 1, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbyists" ], "confirmed" : true }
 { "_id" : ObjectId("66f1462ae0d4b8f6440ce96a"), "id" : 2, "login" : "pumpkin", "groups" : [ "writers", "academics" ], "confirmed" : true }
 { "_id" : ObjectId("66f1462ae0d4b8f6440ce96b"), "id" : 3, "login" : "monsterro", "groups" : [ "hobbyst", "readers" ], "confirmed" : false }
 ```
@@ -92,7 +92,7 @@ If many documents mets the condition, there will be updated only first of them.
 ... );
 { "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
 > db.user.find();
-{ "_id" : ObjectId("66f1462ae0d4b8f6440ce969"), "id" : 1, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbysts" ], "confirmed" : true }
+{ "_id" : ObjectId("66f1462ae0d4b8f6440ce969"), "id" : 1, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbyists" ], "confirmed" : true }
 { "_id" : ObjectId("66f1462ae0d4b8f6440ce96a"), "id" : 2, "login" : "carrot", "groups" : [ "writers", "academics" ], "confirmed" : true }
 { "_id" : ObjectId("66f1462ae0d4b8f6440ce96b"), "id" : 3, "login" : "monsterro", "groups" : [ "hobbyst", "readers" ], "confirmed" : false }
 ```
@@ -123,7 +123,7 @@ If the document with the given condition cannot be found, it can be created inst
 	"upsertedId" : ObjectId("66f15152134bc0eaaca9c100")
 }
 > db.user.find();
-{ "_id" : ObjectId("66f15133e0d4b8f6440ce96f"), "id" : 1, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbysts" ], "confirmed" : true }
+{ "_id" : ObjectId("66f15133e0d4b8f6440ce96f"), "id" : 1, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbyists" ], "confirmed" : true }
 { "_id" : ObjectId("66f15133e0d4b8f6440ce970"), "id" : 2, "login" : "carrot", "groups" : [ "writers", "academics" ], "confirmed" : true }
 { "_id" : ObjectId("66f15133e0d4b8f6440ce971"), "id" : 3, "login" : "monsterro", "groups" : [ "hobbyst", "readers" ], "confirmed" : false }
 { "_id" : ObjectId("66f15152134bc0eaaca9c100"), "login" : "pineapple", "id" : 5 }
@@ -144,7 +144,7 @@ If the document with the given condition cannot be found, it can be created inst
 ... );
 { "acknowledged" : true, "matchedCount" : 4, "modifiedCount" : 4 }
 > db.user.find();
-{ "_id" : ObjectId("66f15133e0d4b8f6440ce96f"), "id" : 2, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbysts" ], "confirmed" : true }
+{ "_id" : ObjectId("66f15133e0d4b8f6440ce96f"), "id" : 2, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbyists" ], "confirmed" : true }
 { "_id" : ObjectId("66f15133e0d4b8f6440ce970"), "id" : 3, "login" : "carrot", "groups" : [ "writers", "academics" ], "confirmed" : true }
 { "_id" : ObjectId("66f15133e0d4b8f6440ce971"), "id" : 4, "login" : "monsterro", "groups" : [ "hobbyst", "readers" ], "confirmed" : false }
 { "_id" : ObjectId("66f15152134bc0eaaca9c100"), "login" : "pineapple", "id" : 6 }
@@ -152,7 +152,7 @@ If the document with the given condition cannot be found, it can be created inst
 
 #### Update operators
 
-**Fields**
+##### Fields
 
 * `$set` - sets the value of a field
 
@@ -171,7 +171,7 @@ If the document with the given condition cannot be found, it can be created inst
 ... );
 { "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
 > db.user.find();
-{ "_id" : ObjectId("66f1599ee0d4b8f6440ce972"), "id" : 2, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbysts" ], "confirmed" : true }
+{ "_id" : ObjectId("66f1599ee0d4b8f6440ce972"), "id" : 2, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbyists" ], "confirmed" : true }
 { "_id" : ObjectId("66f1599ee0d4b8f6440ce973"), "id" : 3, "login" : "carrot", "groups" : [ "writers", "academics" ], "confirmed" : false }
 { "_id" : ObjectId("66f1599ee0d4b8f6440ce974"), "id" : 4, "login" : "monsterro", "groups" : [ "hobbyst", "readers" ], "confirmed" : false }
 { "_id" : ObjectId("66f1599e134bc0eaaca9c12d"), "login" : "pineapple", "id" : 6 }
@@ -192,7 +192,7 @@ If the document with the given condition cannot be found, it can be created inst
 ... );
 { "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
 > db.user.find();
-{ "_id" : ObjectId("66f1599ee0d4b8f6440ce972"), "id" : 2, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbysts" ], "confirmed" : true }
+{ "_id" : ObjectId("66f1599ee0d4b8f6440ce972"), "id" : 2, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbyists" ], "confirmed" : true }
 { "_id" : ObjectId("66f1599ee0d4b8f6440ce973"), "id" : 3, "login" : "carrot", "groups" : [ "writers", "academics" ], "confirmed" : false }
 { "_id" : ObjectId("66f1599ee0d4b8f6440ce974"), "id" : 4, "login" : "monsterro", "groups" : [ "hobbyst", "readers" ], "confirmed" : false }
 { "_id" : ObjectId("66f1599e134bc0eaaca9c12d"), "login" : "pineapple", "id" : 6, "confirmed" : true }
@@ -211,7 +211,7 @@ If the document with the given condition cannot be found, it can be created inst
 ... );
 { "acknowledged" : true, "matchedCount" : 4, "modifiedCount" : 4 }
 > db.user.find();
-{ "_id" : ObjectId("66f1599ee0d4b8f6440ce972"), "id" : 2, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbysts" ], "confirmed" : true, "points" : 0 }
+{ "_id" : ObjectId("66f1599ee0d4b8f6440ce972"), "id" : 2, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbyists" ], "confirmed" : true, "points" : 0 }
 { "_id" : ObjectId("66f1599ee0d4b8f6440ce973"), "id" : 3, "login" : "carrot", "groups" : [ "writers", "academics" ], "confirmed" : false, "points" : 0 }
 { "_id" : ObjectId("66f1599ee0d4b8f6440ce974"), "id" : 4, "login" : "monsterro", "groups" : [ "hobbyst", "readers" ], "confirmed" : false, "points" : 0 }
 { "_id" : ObjectId("66f1599e134bc0eaaca9c12d"), "login" : "pineapple", "id" : 6, "confirmed" : true, "points" : 0 }
@@ -234,7 +234,7 @@ If the document with the given condition cannot be found, it can be created inst
 ... );
 { "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
 > db.user.find();
-{ "_id" : ObjectId("66f1599ee0d4b8f6440ce972"), "id" : 2, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbysts" ], "confirmed" : true, "points" : 0 }
+{ "_id" : ObjectId("66f1599ee0d4b8f6440ce972"), "id" : 2, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbyists" ], "confirmed" : true, "points" : 0 }
 { "_id" : ObjectId("66f1599ee0d4b8f6440ce973"), "id" : 3, "login" : "carrot", "groups" : [ "writers", "academics" ], "confirmed" : false }
 { "_id" : ObjectId("66f1599ee0d4b8f6440ce974"), "id" : 4, "login" : "monsterro", "groups" : [ "hobbyst", "readers" ], "confirmed" : false, "points" : 0 }
 { "_id" : ObjectId("66f1599e134bc0eaaca9c12d"), "login" : "pineapple", "id" : 6, "confirmed" : true, "points" : 0 }
@@ -253,7 +253,7 @@ If the document with the given condition cannot be found, it can be created inst
 ... );
 { "acknowledged" : true, "matchedCount" : 4, "modifiedCount" : 4 }
 > db.user.find();
-{ "_id" : ObjectId("66f1599ee0d4b8f6440ce972"), "id" : 2, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbysts" ], "points" : 0 }
+{ "_id" : ObjectId("66f1599ee0d4b8f6440ce972"), "id" : 2, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbyists" ], "points" : 0 }
 { "_id" : ObjectId("66f1599ee0d4b8f6440ce973"), "id" : 3, "login" : "carrot", "groups" : [ "writers", "academics" ] }
 { "_id" : ObjectId("66f1599ee0d4b8f6440ce974"), "id" : 4, "login" : "monsterro", "groups" : [ "hobbyst", "readers" ], "points" : 0 }
 { "_id" : ObjectId("66f1599e134bc0eaaca9c12d"), "login" : "pineapple", "id" : 6, "points" : 0 }
@@ -276,7 +276,7 @@ If the document with the given condition cannot be found, it can be created inst
 ... );
 { "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
 > db.user.find();
-{ "_id" : ObjectId("66f1599ee0d4b8f6440ce972"), "id" : 2, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbysts" ], "credits" : 0 }
+{ "_id" : ObjectId("66f1599ee0d4b8f6440ce972"), "id" : 2, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbyists" ], "credits" : 0 }
 { "_id" : ObjectId("66f1599ee0d4b8f6440ce973"), "id" : 3, "login" : "carrot", "groups" : [ "writers", "academics" ] }
 { "_id" : ObjectId("66f1599ee0d4b8f6440ce974"), "id" : 4, "login" : "monsterro", "groups" : [ "hobbyst", "readers" ], "points" : 0 }
 { "_id" : ObjectId("66f1599e134bc0eaaca9c12d"), "login" : "pineapple", "id" : 6, "points" : 0 }
@@ -296,7 +296,7 @@ If the document with the given condition cannot be found, it can be created inst
 { "acknowledged" : true, "matchedCount" : 4, "modifiedCount" : 4 }
 >
 > db.user.find();
-{ "_id" : ObjectId("66f1599ee0d4b8f6440ce972"), "id" : 2, "groups" : [ "bloggers", "readers", "hobbysts" ], "credits" : 0, "nick" : "tigger" }
+{ "_id" : ObjectId("66f1599ee0d4b8f6440ce972"), "id" : 2, "groups" : [ "bloggers", "readers", "hobbyists" ], "credits" : 0, "nick" : "tigger" }
 { "_id" : ObjectId("66f1599ee0d4b8f6440ce973"), "id" : 3, "groups" : [ "writers", "academics" ], "nick" : "carrot" }
 { "_id" : ObjectId("66f1599ee0d4b8f6440ce974"), "id" : 4, "groups" : [ "hobbyst", "readers" ], "points" : 0, "nick" : "monsterro" }
 { "_id" : ObjectId("66f1599e134bc0eaaca9c12d"), "id" : 6, "points" : 0, "nick" : "pineapple" }
@@ -316,7 +316,7 @@ If the document with the given condition cannot be found, it can be created inst
 ... );
 { "acknowledged" : true, "matchedCount" : 4, "modifiedCount" : 4 }
 > db.user.find();
-{ "_id" : ObjectId("66f1599ee0d4b8f6440ce972"), "id" : 2, "groups" : [ "bloggers", "readers", "hobbysts" ], "credits" : 1, "nick" : "tigger", "points" : 2 }
+{ "_id" : ObjectId("66f1599ee0d4b8f6440ce972"), "id" : 2, "groups" : [ "bloggers", "readers", "hobbyists" ], "credits" : 1, "nick" : "tigger", "points" : 2 }
 { "_id" : ObjectId("66f1599ee0d4b8f6440ce973"), "id" : 3, "groups" : [ "writers", "academics" ], "nick" : "carrot", "credits" : 1, "points" : 2 }
 { "_id" : ObjectId("66f1599ee0d4b8f6440ce974"), "id" : 4, "groups" : [ "hobbyst", "readers" ], "points" : 2, "nick" : "monsterro", "credits" : 1 }
 { "_id" : ObjectId("66f1599e134bc0eaaca9c12d"), "id" : 6, "points" : 2, "nick" : "pineapple", "credits" : 1 }
@@ -337,7 +337,7 @@ If the document with the given condition cannot be found, it can be created inst
 ... );
 { "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
 > db.user.find();
-{ "_id" : ObjectId("66f19c64e0d4b8f6440ce975"), "id" : 2, "groups" : [ "bloggers", "readers", "hobbysts" ], "credits" : 1, "nick" : "tigger", "points" : 2 }
+{ "_id" : ObjectId("66f19c64e0d4b8f6440ce975"), "id" : 2, "groups" : [ "bloggers", "readers", "hobbyists" ], "credits" : 1, "nick" : "tigger", "points" : 2 }
 { "_id" : ObjectId("66f19c64e0d4b8f6440ce976"), "id" : 3, "groups" : [ "writers", "academics" ], "nick" : "carrot", "credits" : 1, "points" : 2 }
 { "_id" : ObjectId("66f19c64e0d4b8f6440ce977"), "id" : 4, "groups" : [ "hobbyst", "readers" ], "points" : 6, "nick" : "monsterro", "credits" : 1 }
 { "_id" : ObjectId("66f19c64134bc0eaaca9c1bc"), "id" : 6, "points" : 2, "nick" : "pineapple", "credits" : 1 }
@@ -435,7 +435,7 @@ If the document with the given condition cannot be found, it can be created inst
 	"groups" : [
 		"bloggers",
 		"readers",
-		"hobbysts"
+		"hobbyists"
 	],
 	"credits" : 1,
 	"nick" : "tigger",
@@ -480,12 +480,274 @@ If the document with the given condition cannot be found, it can be created inst
 }
 ```
 
-**Array**
+##### Arrays
 
-* `$addToSet`: Adds distinct elements to an array
-* `$pop`: Removes the first or last element of an array
-* `$pull`: Removes all elements from an array that match the query
-* `$push`: Adds an element to an array
+* `$push` - adds an element to an array
+
+```
+> db.user.updateOne(
+...     {
+...         nick: "carrot"
+...     },
+...     {
+...         $push: {
+...             groups: "bloggers"
+...         }
+...     }
+... );
+> db.user.find({nick: "carrot"}).pretty();
+{
+	"_id" : ObjectId("66f19c64e0d4b8f6440ce976"),
+	"id" : 3,
+	"groups" : [
+		"writers",
+		"academics",
+		"bloggers"
+	],
+	"nick" : "carrot",
+	"credits" : 1,
+	"points" : 2,
+	"last_access" : ISODate("2024-09-23T18:10:12.655Z"),
+	"updated_at" : Timestamp(1727115012, 2)
+}
+```
+
+* `$pop` - removes the first or last element of an array
+
+```
+> db.user.updateOne(
+...     {
+...         nick: "tigger"
+...     },
+...     {
+...         $pop: {
+...             groups: 1
+...         }
+...     }
+... );
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.user.find({nick: "tigger"}).pretty();
+{
+	"_id" : ObjectId("66f19c64e0d4b8f6440ce975"),
+	"id" : 2,
+	"groups" : [
+		"bloggers",
+		"readers"
+	],
+	"credits" : 1,
+	"nick" : "tigger",
+	"points" : 2,
+	"last_access" : ISODate("2024-09-23T18:10:12.655Z"),
+	"updated_at" : Timestamp(1727115012, 1)
+}
+```
+
+```
+> db.user.updateOne(
+...     {
+...         nick: "tigger"
+...     },
+...     {
+...         $pop: {
+...             groups: -1
+...         }
+...     }
+... );
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.user.find({nick: "tigger"}).pretty();
+{
+	"_id" : ObjectId("66f19c64e0d4b8f6440ce975"),
+	"id" : 2,
+	"groups" : [
+		"readers"
+	],
+	"credits" : 1,
+	"nick" : "tigger",
+	"points" : 2,
+	"last_access" : ISODate("2024-09-23T18:10:12.655Z"),
+	"updated_at" : Timestamp(1727115012, 1)
+}
+```
+
+* `$pull` - removes all elements from an array that match the query
+
+```
+> db.user.updateOne(
+...     {
+...         nick: "monsterro"
+...     },
+...     {
+...         $pull: {
+...             groups: "readers"
+...         }
+...     }
+... );
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.user.find({nick: "monsterro"}).pretty();
+{
+	"_id" : ObjectId("66f19c64e0d4b8f6440ce977"),
+	"id" : 4,
+	"groups" : [
+		"hobbyst"
+	],
+	"points" : 5,
+	"nick" : "monsterro",
+	"credits" : 2,
+	"last_access" : ISODate("2024-09-23T18:10:12.655Z"),
+	"updated_at" : Timestamp(1727115012, 3)
+}
+```
+
+* `$pullAll` - removes all instances of the specified values from an existing array
+
+```
+> db.user.updateOne(
+...     {
+...         nick: "carrot"
+...     },
+...     {
+...         $pullAll: {
+...             groups: [
+...                 "writers",
+...                 "bloggers"
+...             ]
+...         }
+...     }
+... );
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.user.find({nick: "carrot"}).pretty();
+{
+	"_id" : ObjectId("66f19c64e0d4b8f6440ce976"),
+	"id" : 3,
+	"groups" : [
+		"academics"
+	],
+	"nick" : "carrot",
+	"credits" : 1,
+	"points" : 2,
+	"last_access" : ISODate("2024-09-23T18:10:12.655Z"),
+	"updated_at" : Timestamp(1727115012, 2)
+}
+```
+
+* `$addToSet` - adds distinct elements to an array
+
+```
+> db.user.updateOne(
+...     {
+...         nick: "tigger"
+...     },
+...     {
+...         $addToSet: {
+...             groups: [
+...                 "writers",
+...                 "hobbyists"
+...             ]
+...         }
+...     }
+... );
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.user.find({nick: "tigger"}).pretty();
+{
+	"_id" : ObjectId("66f19c64e0d4b8f6440ce975"),
+	"id" : 2,
+	"groups" : [
+		"readers",
+		[
+			"writers",
+			"hobbyists"
+		]
+	],
+	"credits" : 1,
+	"nick" : "tigger",
+	"points" : 2,
+	"last_access" : ISODate("2024-09-23T18:10:12.655Z"),
+	"updated_at" : Timestamp(1727115012, 1)
+}
+```
+
+###### Modifiers
+
+* `$each` - available for use with the `$addToSet` operator and the `$push` operator
+
+Use with the `$addToSet` operator to add multiple values to an array if the values do not exist in the array.
+
+```
+> db.user.updateOne(
+...     {
+...         nick: "tigger"
+...     },
+...     {
+...         $addToSet: {
+...             groups: {
+...                 $each: [
+...                     "readers",
+...                     "poets",
+...                     "adepts"
+...                 ]
+...             }
+...         }
+...     }
+... );
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.user.find({nick: "tigger"}).pretty();
+{
+	"_id" : ObjectId("66f19c64e0d4b8f6440ce975"),
+	"id" : 2,
+	"groups" : [
+		"readers",
+		[
+			"writers",
+			"hobbyists"
+		],
+		"poets",
+		"adepts"
+	],
+	"credits" : 1,
+	"nick" : "tigger",
+	"points" : 2,
+	"last_access" : ISODate("2024-09-23T18:10:12.655Z"),
+	"updated_at" : Timestamp(1727115012, 1)
+}
+```
+
+Use with the `$push` operator to append multiple values to an array.
+
+```
+> db.user.updateOne(
+...     {
+...         nick: "carrot"
+...     },
+...     {
+...         $push: {
+...             groups: {
+...                 $each: [
+...                     "academics",
+...                     "writers",
+...                     "hobbyists"
+...                 ]
+...             }
+...         }
+...     }
+... );
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.user.find({nick: "carrot"}).pretty();
+{
+	"_id" : ObjectId("66f19c64e0d4b8f6440ce976"),
+	"id" : 3,
+	"groups" : [
+		"academics",
+		"academics",
+		"writers",
+		"hobbyists"
+	],
+	"nick" : "carrot",
+	"credits" : 1,
+	"points" : 2,
+	"last_access" : ISODate("2024-09-23T18:10:12.655Z"),
+	"updated_at" : Timestamp(1727115012, 2)
+}
+```
 
 ### Deleting documents
 
@@ -499,7 +761,7 @@ If many documents mets the condition, there will be deleted only first of them.
 > db.user.deleteOne({id: 4});
 { "acknowledged" : true, "deletedCount" : 1 }
 > db.user.find();
-{ "_id" : ObjectId("66f1462ae0d4b8f6440ce969"), "id" : 2, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbysts" ], "confirmed" : true }
+{ "_id" : ObjectId("66f1462ae0d4b8f6440ce969"), "id" : 2, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbyists" ], "confirmed" : true }
 { "_id" : ObjectId("66f1462ae0d4b8f6440ce96a"), "id" : 3, "login" : "carrot", "groups" : [ "writers", "academics" ], "confirmed" : true }
 { "_id" : ObjectId("66f1473b134bc0eaaca9c0c4"), "login" : "carrot", "id" : 6 }
 ```
