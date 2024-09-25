@@ -325,6 +325,118 @@ db.user.updateOne(
     }
 );
 
+db.user.updateOne(
+    {
+        nick: "carrot"
+    },
+    {
+        $push: {
+            groups: {
+                $each: ["mentors"],
+                $position: 2
+            }
+        }
+    }
+);
+
+db.user.updateOne(
+    {
+        nick: "carrot"
+    },
+    {
+        $push: {
+            groups: {
+                $each: [
+                    "cosmologists",
+                    "bibliologists",
+                    "adepts"
+                ],
+                $sort: 1
+            }
+        }
+    }
+);
+
+db.user.updateOne(
+    {
+        nick: "carrot"
+    },
+    {
+        $push: {
+            groups: {
+                $each: [
+                    "antropologists",
+                    "biologists",
+                    "creators"
+                ],
+                $sort: -1
+            }
+        }
+    }
+);
+
+db.user.updateOne(
+    {
+        nick: "monsterro"
+    },
+    {
+        $push: {
+            groups: {
+                $each: [
+                    "antropologists",
+                    "biologists",
+                    "creators",
+                    "cosmologists",
+                    "bibliologists",
+                    "adepts"
+                ],
+                $slice: 3
+            }
+        }
+    }
+);
+
+db.user.updateOne(
+    {
+        nick: "carrot",
+        groups: "academics"
+    },
+    {
+        $set: {
+            "groups.$": "scientists"
+        }
+    }
+);
+
+db.user.updateOne(
+    {
+        nick: "monsterro"
+    },
+    {
+        $set: {
+            "groups.$[]": "unknown"
+        }
+    }
+);
+
+db.user.updateOne(
+    {
+        nick: "monsterro"
+    },
+    {
+        $set: {
+            "groups.$[element]": "-"
+        }
+    },
+    {
+        arrayFilters: [
+            {
+                element: "unknown"
+            }
+        ]
+    }
+);
+
 db.user.deleteOne({id: 4});
 
 db.user.deleteMany({});

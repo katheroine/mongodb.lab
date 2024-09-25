@@ -749,6 +749,277 @@ Use with the `$push` operator to append multiple values to an array.
 }
 ```
 
+* `$position` - specifies the location in the array at which the `$push` operator inserts elements
+
+Without the `$position` modifier, the `$push` operator inserts elements to the end of the array.
+
+To use the `$position` modifier, it must appear with the `$each` modifier.
+
+```
+> db.user.find({nick: "carrot"}).pretty();
+{
+	"_id" : ObjectId("66f19c64e0d4b8f6440ce976"),
+	"id" : 3,
+	"groups" : [
+		"academics",
+		"academics",
+		"mentors",
+		"writers",
+		"hobbyists"
+	],
+	"nick" : "carrot",
+	"credits" : 1,
+	"points" : 2,
+	"last_access" : ISODate("2024-09-23T18:10:12.655Z"),
+	"updated_at" : Timestamp(1727115012, 2)
+}
+```
+
+* `$sort` - orders the elements of an array during a $push operation
+
+To use the `$sort` modifier, it must appear with the `$each` modifier.
+
+```
+> db.user.updateOne(
+...     {
+...         nick: "carrot"
+...     },
+...     {
+...         $push: {
+...             groups: {
+...                 $each: [
+...                     "cosmologists",
+...                     "bibliologists",
+...                     "adepts"
+...                 ],
+...                 $sort: 1
+...             }
+...         }
+...     }
+... );
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.user.find({nick: "carrot"}).pretty();
+{
+	"_id" : ObjectId("66f19c64e0d4b8f6440ce976"),
+	"id" : 3,
+	"groups" : [
+		"academics",
+		"academics",
+		"adepts",
+		"bibliologists",
+		"cosmologists",
+		"hobbyists",
+		"mentors",
+		"writers"
+	],
+	"nick" : "carrot",
+	"credits" : 1,
+	"points" : 2,
+	"last_access" : ISODate("2024-09-23T18:10:12.655Z"),
+	"updated_at" : Timestamp(1727115012, 2)
+}
+```
+
+```
+> db.user.updateOne(
+...     {
+...         nick: "carrot"
+...     },
+...     {
+...         $push: {
+...             groups: {
+...                 $each: [
+...                     "antropologists",
+...                     "biologists",
+...                     "creators"
+...                 ],
+...                 $sort: -1
+...             }
+...         }
+...     }
+... );
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.user.find({nick: "carrot"}).pretty();
+{
+	"_id" : ObjectId("66f19c64e0d4b8f6440ce976"),
+	"id" : 3,
+	"groups" : [
+		"writers",
+		"mentors",
+		"hobbyists",
+		"creators",
+		"cosmologists",
+		"biologists",
+		"bibliologists",
+		"antropologists",
+		"adepts",
+		"academics",
+		"academics"
+	],
+	"nick" : "carrot",
+	"credits" : 1,
+	"points" : 2,
+	"last_access" : ISODate("2024-09-23T18:10:12.655Z"),
+	"updated_at" : Timestamp(1727115012, 2)
+}
+```
+
+* `$slice` modifier limits the number of array elements during a `$push` operation
+
+To project, or return, a specified number of array elements from a read operation, see the $slice projection operator instead.
+
+To use the `$slic`e modifier, it must appear with the `$each` modifier.
+
+```
+> db.user.updateOne(
+...     {
+...         nick: "monsterro"
+...     },
+...     {
+...         $push: {
+...             groups: {
+...                 $each: [
+...                     "antropologists",
+...                     "biologists",
+...                     "creators",
+...                     "cosmologists",
+...                     "bibliologists",
+...                     "adepts"
+...                 ],
+...                 $slice: 3
+...             }
+...         }
+...     }
+... );
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.user.find({nick: "monsterro"}).pretty();
+{
+	"_id" : ObjectId("66f19c64e0d4b8f6440ce977"),
+	"id" : 4,
+	"groups" : [
+		"hobbyst",
+		"antropologists",
+		"biologists"
+	],
+	"points" : 5,
+	"nick" : "monsterro",
+	"credits" : 2,
+	"last_access" : ISODate("2024-09-23T18:10:12.655Z"),
+	"updated_at" : Timestamp(1727115012, 3)
+}
+```
+
+##### Arrays as fields
+
+* `$` - positional operator when used with update operations, e.g. `db.collection.updateOne()` and `db.collection.findAndModify()`, acts as a placeholder for the first element that matches the query document, and the array field must appear as part of the query document
+
+```
+> db.user.updateOne(
+...     {
+...         nick: "carrot",
+...         groups: "academics"
+...     },
+...     {
+...         $set: {
+...             "groups.$": "scientists"
+...         }
+...     }
+... );
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.user.find({nick: "carrot"}).pretty();
+{
+	"_id" : ObjectId("66f19c64e0d4b8f6440ce976"),
+	"id" : 3,
+	"groups" : [
+		"writers",
+		"mentors",
+		"hobbyists",
+		"creators",
+		"cosmologists",
+		"biologists",
+		"bibliologists",
+		"antropologists",
+		"adepts",
+		"scientists",
+		"academics"
+	],
+	"nick" : "carrot",
+	"credits" : 1,
+	"points" : 2,
+	"last_access" : ISODate("2024-09-23T18:10:12.655Z"),
+	"updated_at" : Timestamp(1727115012, 2)
+}
+```
+
+* `$[]` - positional operator indicates that the update operator should modify all elements in the specified array field
+
+```
+> db.user.updateOne(
+...     {
+...         nick: "monsterro"
+...     },
+...     {
+...         $set: {
+...             "groups.$[]": "unknown"
+...         }
+...     }
+... );
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.user.find({nick: "monsterro"}).pretty();
+{
+	"_id" : ObjectId("66f19c64e0d4b8f6440ce977"),
+	"id" : 4,
+	"groups" : [
+		"unknown",
+		"unknown",
+		"unknown"
+	],
+	"points" : 5,
+	"nick" : "monsterro",
+	"credits" : 2,
+	"last_access" : ISODate("2024-09-23T18:10:12.655Z"),
+	"updated_at" : Timestamp(1727115012, 3)
+}
+```
+
+*  `$[<identifier>]` - positional operator identifies the array elements that match the `arrayFilters` conditions for an update operation, e.g. `db.collection.updateMany()` and `db.collection.findAndModify()`
+
+```
+> db.user.updateOne(
+...     {
+...         nick: "monsterro"
+...     },
+...     {
+...         $set: {
+...             "groups.$[element]": "-"
+...         }
+...     },
+...     {
+...         arrayFilters: [
+...             {
+...                 element: "unknown"
+...             }
+...         ]
+...     }
+... );
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.user.find({nick: "monsterro"}).pretty();
+{
+	"_id" : ObjectId("66f19c64e0d4b8f6440ce977"),
+	"id" : 4,
+	"groups" : [
+		"-",
+		"-",
+		"-"
+	],
+	"points" : 5,
+	"nick" : "monsterro",
+	"credits" : 2,
+	"last_access" : ISODate("2024-09-23T18:10:12.655Z"),
+	"updated_at" : Timestamp(1727115012, 3)
+}
+```
+
 ### Deleting documents
 
 **Deleting single document**
