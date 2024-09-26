@@ -1032,9 +1032,9 @@ If many documents mets the condition, there will be deleted only first of them.
 > db.user.deleteOne({id: 4});
 { "acknowledged" : true, "deletedCount" : 1 }
 > db.user.find();
-{ "_id" : ObjectId("66f1462ae0d4b8f6440ce969"), "id" : 2, "login" : "tigger", "groups" : [ "bloggers", "readers", "hobbyists" ], "confirmed" : true }
-{ "_id" : ObjectId("66f1462ae0d4b8f6440ce96a"), "id" : 3, "login" : "carrot", "groups" : [ "writers", "academics" ], "confirmed" : true }
-{ "_id" : ObjectId("66f1473b134bc0eaaca9c0c4"), "login" : "carrot", "id" : 6 }
+{ "_id" : ObjectId("66f19c64e0d4b8f6440ce975"), "id" : 2, "groups" : [ "readers", [ "writers", "hobbyists" ], "poets", "adepts" ], "credits" : 1, "nick" : "tigger", "points" : 2, "last_access" : ISODate("2024-09-23T18:10:12.655Z"), "updated_at" : Timestamp(1727115012, 1) }
+{ "_id" : ObjectId("66f19c64e0d4b8f6440ce976"), "id" : 3, "groups" : [ "writers", "mentors", "hobbyists", "creators", "cosmologists", "biologists", "bibliologists", "antropologists", "adepts", "scientists", "academics" ], "nick" : "carrot", "credits" : 1, "points" : 2, "last_access" : ISODate("2024-09-23T18:10:12.655Z"), "updated_at" : Timestamp(1727115012, 2) }
+{ "_id" : ObjectId("66f19c64134bc0eaaca9c1bc"), "id" : 6, "points" : 2, "nick" : "pineapple", "credits" : 1, "last_access" : ISODate("2024-09-23T18:10:12.655Z"), "updated_at" : Timestamp(1727115012, 4) }
 ```
 
 **Deleting multiple documents**
