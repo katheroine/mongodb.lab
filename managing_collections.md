@@ -104,6 +104,60 @@ cover_type
 quote
 ```
 
+#### Validation
+
+```
+> db.createCollection("quote", {
+...     validator: {
+...         $jsonSchema: {
+...             bsonType: "object",
+...             required: [ "id", "owner_id", "content" ],
+...             properties: {
+...                 id: {
+...                     bsonType: "int",
+...                     description: "'id' must be an integer and is required"
+...                 },
+...                 owner_id: {
+...                     bsonType: "int",
+...                     description: "'owner_id' must be an integer and is required"
+...                 },
+...                 content: {
+...                     bsonType: "string",
+...                     description: "'content' must be a string and is required"
+...                 },
+...                 author: {
+...                     bsonType: "string",
+...                     description: "'author' must be a string"
+...                 },
+...                 source: {
+...                     bsonType: "string",
+...                     description: "'source' must be a string"
+...                 },
+...                 rating: {
+...                     bsonType: "int",
+...                     description: "'rating' must be a string"
+...                 }
+...             }
+...         }
+...     }
+... });
+{ "ok" : 1 }
+> db.quote.insertOne({
+...     id: NumberInt(1),
+...     owner_id: NumberInt(11),
+...     content: "Though this be madness, yet there is method in 't.",
+...     author: "William Shakespeare",
+...     source: "Hamlet",
+...     rating: NumberInt(5)
+... });
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("66f553e7e0d4b8f6440ce982")
+}
+> db.quote.find();
+{ "_id" : ObjectId("66f553e7e0d4b8f6440ce982"), "id" : 1, "owner_id" : 11, "content" : "Though this be madness, yet there is method in 't.", "author" : "William Shakespeare", "source" : "Hamlet", "rating" : 5 }
+```
+
 ### Deleting collections
 
 **`db.<collection>.drop()`**
