@@ -1,5 +1,6 @@
 [⌂ Home](../../README.md)
 [▲ Previous: Managing collections](managing_collections.md)
+[▼ Next: Querying database](querying_database.md)
 
 ## Managing documents
 

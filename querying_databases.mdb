@@ -1,0 +1,197 @@
+```sql
+CREATE TABLE owner
+(
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(256),
+    surname VARCHAR(256),
+    login VARCHAR(256) NOT NULL UNIQUE
+);
+
+INSERT INTO owner (id, name, surname, login) VALUES
+    (101, 'John', 'Doe', 'johnd'),
+    (102, 'Jane', 'Smith', 'janes'),
+    (103, NULL, 'Johnson', 'anonymous_j'),
+    (104, 'Michael', NULL, 'mike_m'),
+    (105, 'Emily', 'Brown', 'emily_b'),
+    (106, NULL, NULL, 'mystery_user'),
+    (107, 'David', 'Wilson', 'david_w'),
+    (108, 'Sarah', 'Taylor', 'sarah_t'),
+    (109, 'Robert', NULL, 'rob_123'),
+    (110, 'Lisa', 'Anderson', 'lisa_a');
+```
+
+db.createCollection("quote", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: [ "id", "owner_id", "content" ],
+            properties: {
+                id: {
+                    bsonType: "int",
+                    description: "'id' must be an integer and is required"
+                },
+                owner_id: {
+                    bsonType: "int",
+                    description: "'owner_id' must be an integer and is required"
+                },
+                content: {
+                    bsonType: "string",
+                    description: "'content' must be a string and is required"
+                },
+                author: {
+                    bsonType: "string",
+                    description: "'author' must be a string"
+                },
+                source: {
+                    bsonType: "string",
+                    description: "'source' must be a string"
+                },
+                rating: {
+                    bsonType: "int",
+                    description: "'rating' must be a string"
+                }
+            }
+        }
+    }
+});
+
+db.quote.insertMany([
+    {
+        id: NumberInt(1),
+        owner_id: NumberInt(101),
+        content: "Though this be madness, yet there is method in 't.",
+        author: "William Shakespeare",
+        source: "Hamlet",
+        rating: NumberInt(5)
+    },
+    {
+        id: NumberInt(2),
+        owner_id: NumberInt(102),
+        content: "Pride relates more to our opinion of ourselves, vanity to what we would have others think of us.",
+        author: "Jane Austen",
+        source: "Pride and Prejudice",
+        rating: NumberInt(4)
+    },
+    {
+        id: NumberInt(3),
+        owner_id: NumberInt(103),
+        content: "All of science is nothing more than the refinement of everyday thinking.",
+        author: "Albert Einstein",
+        source: "Physics and Reality",
+        rating: NumberInt(5)
+    },
+    {
+        id: NumberInt(4),
+        owner_id: NumberInt(104),
+        content: "There is no greater agony than bearing an untold story inside you.",
+        author: "Maya Angelou",
+        source: "I Know Why the Caged Bird Sings",
+        rating: NumberInt(4)
+    },
+    {
+        id: NumberInt(5),
+        owner_id: NumberInt(105),
+        content: "The higher we soar the smaller we appear to those who cannot fly.",
+        author: "Friedrich Nietzsche",
+        source: "Thus Spoke Zarathustra",
+        rating: NumberInt(3)
+    },
+    {
+        id: NumberInt(6),
+        owner_id: NumberInt(106),
+        content: "Nowadays people know the price of everything and the value of nothing.",
+        author: "Oscar Wilde",
+        source: "The Picture of Dorian Gray",
+        rating: NumberInt(4)
+    },
+    {
+        id: NumberInt(7),
+        owner_id: NumberInt(107),
+        content: "Service without humility is selfishness and egotism.",
+        author: "Mahatma Gandhi",
+        source: "The Story of My Experiments with Truth",
+        rating: NumberInt(5)
+    },
+    {
+        id: NumberInt(8),
+        owner_id: NumberInt(108),
+        content: "There is no gate, no lock, no bolt that you can set upon the freedom of my mind.",
+        author: "Virginia Woolf",
+        source: "A Room of One's Own",
+        rating: NumberInt(3)
+    },
+    {
+        id: NumberInt(9),
+        owner_id: NumberInt(109),
+        content: "If you tell the truth you do not need a good memory!",
+        author: "Mark Twain",
+        source: "The Adventures of Huckleberry Finn",
+        rating: NumberInt(3)
+    },
+    {
+        id: NumberInt(10),
+        owner_id: NumberInt(110),
+        content: "Freedom is obedience to self-formulated rules.",
+        author: "Aristotle",
+        source: "Nicomachean Ethics",
+        rating: NumberInt(5)
+    }
+]);
+
+db.quote.find();
+
+db.quote.find().pretty();
+
+db.quote.find(
+    {},
+    {
+        author: true,
+        source: true
+    }
+);
+
+db.quote.find(
+    {},
+    {
+        author: true,
+        source: true
+    }
+).pretty();
+
+db.quote.find(
+    {
+        owner_id: 106
+    }
+);
+
+db.quote.find(
+    {
+        owner_id: 106
+    }
+).pretty();
+
+db.quote.find(
+    {
+        rating: {
+            $gt: 4
+        }
+    },
+    {
+        author: true,
+        source: true,
+        rating: true
+    }
+);
+
+db.quote.find(
+    {
+        rating: {
+            $gt: 4
+        }
+    },
+    {
+        author: true,
+        source: true,
+        rating: true
+    }
+).pretty();
