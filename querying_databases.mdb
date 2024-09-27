@@ -195,3 +195,59 @@ db.quote.find(
         rating: true
     }
 ).pretty();
+
+db.quote.find(
+    {
+        rating: {
+            $eq: 5
+        }
+    }
+).pretty();
+
+db.quote.find(
+    {
+        rating: {
+            $ne: 5
+        }
+    }
+).pretty();
+
+db.quote.find(
+    {
+        rating: {
+            $lt: 4
+        }
+    }
+).pretty();
+
+db.quote.find(
+    {
+        rating: {
+            $lte: 4
+        }
+    }
+).pretty();
+
+db.quote.find(
+    {
+        rating: {
+            $gt: 4
+        }
+    }
+).pretty();
+
+db.quote.find(
+    {
+        rating: {
+            $gte: 4
+        }
+    }
+).pretty();
+
+db.quote.find(
+    {
+        rating: {
+            $in: [3, 5]
+        }
+    }
+).pretty();
