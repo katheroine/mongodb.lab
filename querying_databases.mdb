@@ -1,25 +1,3 @@
-```sql
-CREATE TABLE owner
-(
-    id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(256),
-    surname VARCHAR(256),
-    login VARCHAR(256) NOT NULL UNIQUE
-);
-
-INSERT INTO owner (id, name, surname, login) VALUES
-    (101, 'John', 'Doe', 'johnd'),
-    (102, 'Jane', 'Smith', 'janes'),
-    (103, NULL, 'Johnson', 'anonymous_j'),
-    (104, 'Michael', NULL, 'mike_m'),
-    (105, 'Emily', 'Brown', 'emily_b'),
-    (106, NULL, NULL, 'mystery_user'),
-    (107, 'David', 'Wilson', 'david_w'),
-    (108, 'Sarah', 'Taylor', 'sarah_t'),
-    (109, 'Robert', NULL, 'rob_123'),
-    (110, 'Lisa', 'Anderson', 'lisa_a');
-```
-
 db.createCollection("quote", {
     validator: {
         $jsonSchema: {
@@ -249,5 +227,69 @@ db.quote.find(
         rating: {
             $in: [3, 5]
         }
+    }
+).pretty();
+
+db.quote.find(
+    {
+        rating: {
+            $nin: [3, 5]
+        }
+    }
+).pretty();
+
+db.quote.find(
+    {
+        rating: {
+            $not:
+            {
+                $in: [3, 5]
+            }
+        }
+    }
+).pretty();
+
+db.quote.find(
+    {
+        $and: [
+            {
+                rating: 3
+            },
+            {
+                id: {
+                    $lt: 6
+                }
+            }
+        ]
+    }
+).pretty();
+
+db.quote.find(
+    {
+        $or: [
+            {
+                rating: 5
+            },
+            {
+                id: {
+                    $lt: 3
+                }
+            }
+        ]
+    }
+).pretty();
+
+db.quote.find(
+    {
+        $nor: [
+            {
+                rating: 4
+            },
+            {
+                id: {
+                    $gt: 4
+                }
+            }
+        ]
     }
 ).pretty();
