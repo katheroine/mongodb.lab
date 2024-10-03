@@ -969,6 +969,48 @@ db.<collection>.find(
 
 ##### Logical operators
 
+**Logical negation `$not`**
+
+```
+> db.quote.find(
+...     {
+...         rating: {
+...             $not:
+...             {
+...                 $in: [3, 5]
+...             }
+...         }
+...     }
+... ).pretty();
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce984"),
+	"id" : 2,
+	"owner_id" : 102,
+	"content" : "Pride relates more to our opinion of ourselves, vanity to what we would have others think of us.",
+	"author" : "Jane Austen",
+	"source" : "Pride and Prejudice",
+	"rating" : 4
+}
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce986"),
+	"id" : 4,
+	"owner_id" : 104,
+	"content" : "There is no greater agony than bearing an untold story inside you.",
+	"author" : "Maya Angelou",
+	"source" : "I Know Why the Caged Bird Sings",
+	"rating" : 4
+}
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce988"),
+	"id" : 6,
+	"owner_id" : 106,
+	"content" : "Nowadays people know the price of everything and the value of nothing.",
+	"author" : "Oscar Wilde",
+	"source" : "The Picture of Dorian Gray",
+	"rating" : 4
+}
+```
+
 **Logical product `$and`**
 
 ```
@@ -1098,14 +1140,345 @@ db.<collection>.find(
 }
 ```
 
-#### Select results order
+##### Element operators
 
-**Order by single column**
+**`$exists`**
 
-**Order by multiple columns**
+```
+> db.quote.find(
+...     {
+...         rating: {
+...                 $exists: true
+...             }
+...     }
+... ).pretty();
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce983"),
+	"id" : 1,
+	"owner_id" : 101,
+	"content" : "Though this be madness, yet there is method in 't.",
+	"author" : "William Shakespeare",
+	"source" : "Hamlet",
+	"rating" : 5
+}
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce984"),
+	"id" : 2,
+	"owner_id" : 102,
+	"content" : "Pride relates more to our opinion of ourselves, vanity to what we would have others think of us.",
+	"author" : "Jane Austen",
+	"source" : "Pride and Prejudice",
+	"rating" : 4
+}
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce985"),
+	"id" : 3,
+	"owner_id" : 103,
+	"content" : "All of science is nothing more than the refinement of everyday thinking.",
+	"author" : "Albert Einstein",
+	"source" : "Physics and Reality",
+	"rating" : 5
+}
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce986"),
+	"id" : 4,
+	"owner_id" : 104,
+	"content" : "There is no greater agony than bearing an untold story inside you.",
+	"author" : "Maya Angelou",
+	"source" : "I Know Why the Caged Bird Sings",
+	"rating" : 4
+}
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce987"),
+	"id" : 5,
+	"owner_id" : 105,
+	"content" : "The higher we soar the smaller we appear to those who cannot fly.",
+	"author" : "Friedrich Nietzsche",
+	"source" : "Thus Spoke Zarathustra",
+	"rating" : 3
+}
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce988"),
+	"id" : 6,
+	"owner_id" : 106,
+	"content" : "Nowadays people know the price of everything and the value of nothing.",
+	"author" : "Oscar Wilde",
+	"source" : "The Picture of Dorian Gray",
+	"rating" : 4
+}
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce989"),
+	"id" : 7,
+	"owner_id" : 107,
+	"content" : "Service without humility is selfishness and egotism.",
+	"author" : "Mahatma Gandhi",
+	"source" : "The Story of My Experiments with Truth",
+	"rating" : 5
+}
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce98a"),
+	"id" : 8,
+	"owner_id" : 108,
+	"content" : "There is no gate, no lock, no bolt that you can set upon the freedom of my mind.",
+	"author" : "Virginia Woolf",
+	"source" : "A Room of One's Own",
+	"rating" : 3
+}
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce98b"),
+	"id" : 9,
+	"owner_id" : 109,
+	"content" : "If you tell the truth you do not need a good memory!",
+	"author" : "Mark Twain",
+	"source" : "The Adventures of Huckleberry Finn",
+	"rating" : 3
+}
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce98c"),
+	"id" : 10,
+	"owner_id" : 110,
+	"content" : "Freedom is obedience to self-formulated rules.",
+	"author" : "Aristotle",
+	"source" : "Nicomachean Ethics",
+	"rating" : 5
+}
+```
 
-**Ascending order `ASC`**
+**`$type`**
 
-**Descending order `DESC`**
+```
+> db.quote.find(
+...     {
+...         rating: {
+...                 $type: "int"
+...             }
+...     }
+... ).pretty();
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce983"),
+	"id" : 1,
+	"owner_id" : 101,
+	"content" : "Though this be madness, yet there is method in 't.",
+	"author" : "William Shakespeare",
+	"source" : "Hamlet",
+	"rating" : 5
+}
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce984"),
+	"id" : 2,
+	"owner_id" : 102,
+	"content" : "Pride relates more to our opinion of ourselves, vanity to what we would have others think of us.",
+	"author" : "Jane Austen",
+	"source" : "Pride and Prejudice",
+	"rating" : 4
+}
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce985"),
+	"id" : 3,
+	"owner_id" : 103,
+	"content" : "All of science is nothing more than the refinement of everyday thinking.",
+	"author" : "Albert Einstein",
+	"source" : "Physics and Reality",
+	"rating" : 5
+}
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce986"),
+	"id" : 4,
+	"owner_id" : 104,
+	"content" : "There is no greater agony than bearing an untold story inside you.",
+	"author" : "Maya Angelou",
+	"source" : "I Know Why the Caged Bird Sings",
+	"rating" : 4
+}
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce987"),
+	"id" : 5,
+	"owner_id" : 105,
+	"content" : "The higher we soar the smaller we appear to those who cannot fly.",
+	"author" : "Friedrich Nietzsche",
+	"source" : "Thus Spoke Zarathustra",
+	"rating" : 3
+}
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce988"),
+	"id" : 6,
+	"owner_id" : 106,
+	"content" : "Nowadays people know the price of everything and the value of nothing.",
+	"author" : "Oscar Wilde",
+	"source" : "The Picture of Dorian Gray",
+	"rating" : 4
+}
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce989"),
+	"id" : 7,
+	"owner_id" : 107,
+	"content" : "Service without humility is selfishness and egotism.",
+	"author" : "Mahatma Gandhi",
+	"source" : "The Story of My Experiments with Truth",
+	"rating" : 5
+}
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce98a"),
+	"id" : 8,
+	"owner_id" : 108,
+	"content" : "There is no gate, no lock, no bolt that you can set upon the freedom of my mind.",
+	"author" : "Virginia Woolf",
+	"source" : "A Room of One's Own",
+	"rating" : 3
+}
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce98b"),
+	"id" : 9,
+	"owner_id" : 109,
+	"content" : "If you tell the truth you do not need a good memory!",
+	"author" : "Mark Twain",
+	"source" : "The Adventures of Huckleberry Finn",
+	"rating" : 3
+}
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce98c"),
+	"id" : 10,
+	"owner_id" : 110,
+	"content" : "Freedom is obedience to self-formulated rules.",
+	"author" : "Aristotle",
+	"source" : "Nicomachean Ethics",
+	"rating" : 5
+}
+```
 
-**Mixed order**
+##### Evaluation operators
+
+**Modulo `$mod`**
+
+```
+> db.quote.find(
+...     {
+...         rating: {
+...                 $mod: [2, 0]
+...             }
+...     }
+... ).pretty();
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce984"),
+	"id" : 2,
+	"owner_id" : 102,
+	"content" : "Pride relates more to our opinion of ourselves, vanity to what we would have others think of us.",
+	"author" : "Jane Austen",
+	"source" : "Pride and Prejudice",
+	"rating" : 4
+}
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce986"),
+	"id" : 4,
+	"owner_id" : 104,
+	"content" : "There is no greater agony than bearing an untold story inside you.",
+	"author" : "Maya Angelou",
+	"source" : "I Know Why the Caged Bird Sings",
+	"rating" : 4
+}
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce988"),
+	"id" : 6,
+	"owner_id" : 106,
+	"content" : "Nowadays people know the price of everything and the value of nothing.",
+	"author" : "Oscar Wilde",
+	"source" : "The Picture of Dorian Gray",
+	"rating" : 4
+}
+```
+
+**Regular expresions `$regex`**
+
+```
+> db.quote.find(
+...     {
+...         content: {
+...                 $regex: /ing\./
+...             }
+...     }
+... ).pretty();
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce985"),
+	"id" : 3,
+	"owner_id" : 103,
+	"content" : "All of science is nothing more than the refinement of everyday thinking.",
+	"author" : "Albert Einstein",
+	"source" : "Physics and Reality",
+	"rating" : 5
+}
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce988"),
+	"id" : 6,
+	"owner_id" : 106,
+	"content" : "Nowadays people know the price of everything and the value of nothing.",
+	"author" : "Oscar Wilde",
+	"source" : "The Picture of Dorian Gray",
+	"rating" : 4
+}
+```
+
+**Query expression `$expr`**
+
+```
+> db.quote.find(
+...     {
+...         $expr: {
+...                 $gt: ["$id", "$rating"]
+...             }
+...     }
+... ).pretty();
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce987"),
+	"id" : 5,
+	"owner_id" : 105,
+	"content" : "The higher we soar the smaller we appear to those who cannot fly.",
+	"author" : "Friedrich Nietzsche",
+	"source" : "Thus Spoke Zarathustra",
+	"rating" : 3
+}
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce988"),
+	"id" : 6,
+	"owner_id" : 106,
+	"content" : "Nowadays people know the price of everything and the value of nothing.",
+	"author" : "Oscar Wilde",
+	"source" : "The Picture of Dorian Gray",
+	"rating" : 4
+}
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce989"),
+	"id" : 7,
+	"owner_id" : 107,
+	"content" : "Service without humility is selfishness and egotism.",
+	"author" : "Mahatma Gandhi",
+	"source" : "The Story of My Experiments with Truth",
+	"rating" : 5
+}
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce98a"),
+	"id" : 8,
+	"owner_id" : 108,
+	"content" : "There is no gate, no lock, no bolt that you can set upon the freedom of my mind.",
+	"author" : "Virginia Woolf",
+	"source" : "A Room of One's Own",
+	"rating" : 3
+}
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce98b"),
+	"id" : 9,
+	"owner_id" : 109,
+	"content" : "If you tell the truth you do not need a good memory!",
+	"author" : "Mark Twain",
+	"source" : "The Adventures of Huckleberry Finn",
+	"rating" : 3
+}
+{
+	"_id" : ObjectId("66f57f34e0d4b8f6440ce98c"),
+	"id" : 10,
+	"owner_id" : 110,
+	"content" : "Freedom is obedience to self-formulated rules.",
+	"author" : "Aristotle",
+	"source" : "Nicomachean Ethics",
+	"rating" : 5
+}
+```

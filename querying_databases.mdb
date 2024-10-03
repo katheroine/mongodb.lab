@@ -293,3 +293,43 @@ db.quote.find(
         ]
     }
 ).pretty();
+
+db.quote.find(
+    {
+        rating: {
+                $exists: true
+            }
+    }
+).pretty();
+
+db.quote.find(
+    {
+        rating: {
+                $type: "int"
+            }
+    }
+).pretty();
+
+db.quote.find(
+    {
+        rating: {
+                $mod: [2, 0]
+            }
+    }
+).pretty();
+
+db.quote.find(
+    {
+        content: {
+                $regex: /ing\./
+            }
+    }
+).pretty();
+
+db.quote.find(
+    {
+        $expr: {
+                $gt: ["$id", "$rating"]
+            }
+    }
+).pretty();
