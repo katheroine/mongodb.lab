@@ -333,3 +333,271 @@ db.quote.find(
             }
     }
 ).pretty();
+
+db.createCollection("user", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: [ "login" ],
+            properties: {
+                login: {
+                    bsonType: "string",
+                    description: "'login' must be a string and is required"
+                },
+                group_name: {
+                    bsonType: "string",
+                    description: "'group_name' must be a string"
+                },
+                credits: {
+                    bsonType: "int",
+                    description: "'credits' must be a string"
+                }
+            }
+        }
+    }
+});
+
+db.user.insertMany([
+    {
+        login: "john_doe",
+        group_name: "bloggers",
+        credits: NumberInt(100)
+    },
+    {
+        login: "science_gal",
+        group_name: "scientists",
+        credits: NumberInt(250)
+    },
+    {
+        login: "news_hound",
+        group_name: "journalists",
+        credits: NumberInt(150)
+    },
+    {
+        login: "study_buddy",
+        group_name: "students",
+        credits: NumberInt(50)
+    },
+    {
+        login: "data_miner",
+        group_name: "researchers",
+        credits: NumberInt(200)
+    },
+    {
+        login: "craft_master",
+        group_name: "hobbyists",
+        credits: NumberInt(75)
+    },
+    {
+        login: "tech_blogger",
+        group_name: "bloggers",
+        credits: NumberInt(120)
+    },
+    {
+        login: "quantum_guy",
+        group_name: "scientists",
+        credits: NumberInt(300)
+    },
+    {
+        login: "truth_seeker",
+        group_name: "journalists",
+        credits: NumberInt(180)
+    },
+    {
+        login: "college_kid",
+        group_name: "students",
+        credits: NumberInt(30)
+    },
+    {
+        login: "lab_rat",
+        group_name: "researchers",
+        credits: NumberInt(220)
+    },
+    {
+        login: "diy_enthusiast",
+        group_name: "hobbyists",
+        credits: NumberInt(90)
+    },
+    {
+        login: "food_critic",
+        group_name: "bloggers",
+        credits: NumberInt(80)
+    },
+    {
+        login: "rocket_woman",
+        group_name: "scientists",
+        credits: NumberInt(280)
+    },
+    {
+        login: "roving_reporter",
+        group_name: "journalists",
+        credits: NumberInt(160)
+    },
+    {
+        login: "grad_student",
+        group_name: "students",
+        credits: NumberInt(40)
+    },
+    {
+        login: "book_worm",
+        group_name: "researchers",
+        credits: NumberInt(240)
+    },
+    {
+        login: "stamp_collector",
+        group_name: "hobbyists",
+        credits: NumberInt(60)
+    },
+    {
+        login: "travel_guru",
+        group_name: "bloggers",
+        credits: NumberInt(110)
+    },
+    {
+        login: "chem_whiz",
+        group_name: "scientists",
+        credits: NumberInt(270)
+    }
+]);
+
+db.user.aggregate([
+    {
+        $match: {}
+    },
+    {
+        $count: "count"
+    }
+]);
+
+db.user.aggregate([
+    {
+        $match: {
+            group_name: "researchers"
+        }
+    },
+    {
+        $count: "users number"
+    }
+]);
+
+db.user.aggregate([
+    {
+        $group: {
+            _id: null,
+            minimum_credits: {
+                $min: "$credits"
+            }
+        }
+    }
+]);
+
+db.user.aggregate([
+    {
+        $group: {
+            _id: null,
+            maximum_credits: {
+                $max: "$credits"
+            }
+        }
+    }
+]);
+
+db.user.aggregate([
+    {
+        $group: {
+            _id: null,
+            total_credits: {
+                $sum: "$credits"
+            }
+        }
+    }
+]);
+
+db.user.aggregate([
+    {
+        $group: {
+            _id: null,
+            average_credits: {
+                $avg: "$credits"
+            }
+        }
+    }
+]);
+
+db.user.aggregate([
+    {
+        $group: {
+            _id: null,
+            standard_deviation_of_credits: {
+                $stdDevPop: "$credits"
+            }
+        }
+    }
+]);
+
+db.user.aggregate([
+    {
+        $group: {
+            _id: "$group_name",
+            count: {
+                $sum: 1
+            }
+        },
+
+    }
+]);
+
+db.user.aggregate([
+    {
+        $group: {
+            _id: "$group_name",
+            minimum_credits: {
+                $min: "$credits"
+            }
+        }
+    }
+]);
+
+db.user.aggregate([
+    {
+        $group: {
+            _id: "$group_name",
+            maximum_credits: {
+                $max: "$credits"
+            }
+        }
+    }
+]);
+
+db.user.aggregate([
+    {
+        $group: {
+            _id: "$group_name",
+            total_credits: {
+                $sum: "$credits"
+            }
+        }
+    }
+]);
+
+db.user.aggregate([
+    {
+        $group: {
+            _id: "$group_name",
+            average_credits: {
+                $avg: "$credits"
+            }
+        }
+    }
+]);
+
+db.user.aggregate([
+    {
+        $group: {
+            _id: "$group_name",
+            standard_deviation_of_credits: {
+                $stdDevPop: "$credits"
+            }
+        }
+    }
+]);

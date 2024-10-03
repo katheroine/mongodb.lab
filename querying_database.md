@@ -1482,3 +1482,353 @@ db.<collection>.find(
 	"rating" : 5
 }
 ```
+
+### Aggregations
+
+#### Aggregate operators
+
+**Database preparation**
+
+```
+db.createCollection("user", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: [ "login" ],
+            properties: {
+                login: {
+                    bsonType: "string",
+                    description: "'login' must be a string and is required"
+                },
+                group_name: {
+                    bsonType: "string",
+                    description: "'group_name' must be a string"
+                },
+                credits: {
+                    bsonType: "int",
+                    description: "'credits' must be a string"
+                }
+            }
+        }
+    }
+});
+
+db.user.insertMany([
+    {
+        login: "john_doe",
+        group_name: "bloggers"
+        credits: NumberInt(100)
+    },
+    {
+        login: "science_gal",
+        group_name: "scientists",
+        credits: 250
+    },
+    {
+        login: "news_hound",
+        group_name: "journalists",
+        credits: 150
+    },
+    {
+        login: "study_buddy",
+        group_name: "students",
+        credits: 50
+    },
+    {
+        login: "data_miner",
+        group_name: "researchers",
+        credits: 200
+    },
+    {
+        login: "craft_master",
+        group_name: "hobbyists",
+        credits: 75
+    },
+    {
+        login: "tech_blogger",
+        group_name: "bloggers",
+        credits: 120
+    },
+    {
+        login: "quantum_guy",
+        group_name: "scientists",
+        credits: 300
+    },
+    {
+        login: "truth_seeker",
+        group_name: "journalists",
+        credits: 180
+    },
+    {
+        login: "college_kid",
+        group_name: "students",
+        credits: 30
+    },
+    {
+        login: "lab_rat",
+        group_name: "researchers",
+        credits: 220
+    },
+    {
+        login: "diy_enthusiast",
+        group_name: "hobbyists",
+        credits: 90
+    },
+    {
+        login: "food_critic",
+        group_name: "bloggers",
+        credits: 80
+    },
+    {
+        login: "rocket_woman",
+        group_name: "scientists",
+        credits: 280
+    },
+    {
+        login: "roving_reporter",
+        group_name: "journalists",
+        credits: 160
+    },
+    {
+        login: "grad_student",
+        group_name: "students",
+        credits: 40
+    },
+    {
+        login: "book_worm",
+        group_name: "researchers",
+        credits: 240
+    },
+    {
+        login: "stamp_collector",
+        group_name: "hobbyists",
+        credits: 60
+    },
+    {
+        login: "travel_guru",
+        group_name: "bloggers",
+        credits: 110
+    },
+    {
+        login: "chem_whiz",
+        group_name: "scientists",
+        credits: 270
+    }
+]);
+```
+
+**Results count `$count`**
+
+```
+> db.user.aggregate([
+...     {
+...         $match: {}
+...     },
+...     {
+...         $count: "count"
+...     }
+... ]);
+{ "count" : 20 }
+```
+
+```
+> db.user.aggregate([
+...     {
+...         $match: {
+...             group_name: "researchers"
+...         }
+...     },
+...     {
+...         $count: "users number"
+...     }
+... ]);
+{ "users number" : 3 }
+```
+
+**Minimum value `$min`**
+
+```
+> db.user.aggregate([
+...     {
+...         $group: {
+...             _id: null,
+...             minimum_credits: {
+...                 $min: "$credits"
+...             }
+...         }
+...     }
+... ]);
+{ "_id" : null, "minimum_credits" : 30 }
+```
+
+**Maximum value `$max`**
+
+```
+> db.user.aggregate([
+...     {
+...         $group: {
+...             _id: null,
+...             maximum_credits: {
+...                 $max: "$credits"
+...             }
+...         }
+...     }
+... ]);
+{ "_id" : null, "maximum_credits" : 300 }
+```
+
+**Total `$sum`**
+
+```
+> db.user.aggregate([
+...     {
+...         $group: {
+...             _id: null,
+...             total_credits: {
+...                 $sum: "$credits"
+...             }
+...         }
+...     }
+... ]);
+{ "_id" : null, "total_credits" : 3005 }
+```
+
+**Average `$avg`**
+
+```
+> db.user.aggregate([
+...     {
+...         $group: {
+...             _id: null,
+...             average_credits: {
+...                 $avg: "$credits"
+...             }
+...         }
+...     }
+... ]);
+{ "_id" : null, "average_credits" : 150.25 }
+```
+
+**Standard deviation `$stdDevPop`**
+
+```
+> db.user.aggregate([
+...     {
+...         $group: {
+...             _id: null,
+...             standard_deviation_of_credits: {
+...                 $stdDevPop: "$credits"
+...             }
+...         }
+...     }
+... ]);
+{ "_id" : null, "standard_deviation_of_credits" : 84.85981086474327 }S
+```
+
+#### Groupings
+
+**Results count**
+
+```
+> db.user.aggregate([
+...     {
+...         $group: {
+...             _id: "$group_name",
+...             count: {
+...                 $sum: 1
+...             }
+...         },
+...
+...     }
+... ]);
+{ "_id" : "hobbyists", "count" : 3 }
+{ "_id" : "researchers", "count" : 3 }
+{ "_id" : "students", "count" : 3 }
+{ "_id" : "journalists", "count" : 3 }
+{ "_id" : "scientists", "count" : 4 }
+{ "_id" : "bloggers", "count" : 4 }
+```
+
+**Minimum value `$min`**
+
+```
+> db.user.aggregate([
+...     {
+...         $group: {
+...             _id: "$group_name",
+...             minimum_credits: {
+...                 $min: "$credits"
+...             }
+...         }
+...     }
+... ]);
+{ "_id" : "hobbyists", "minimum_credits" : 60 }
+{ "_id" : "researchers", "minimum_credits" : 200 }
+{ "_id" : "students", "minimum_credits" : 30 }
+{ "_id" : "journalists", "minimum_credits" : 150 }
+{ "_id" : "scientists", "minimum_credits" : 250 }
+{ "_id" : "bloggers", "minimum_credits" : 80 }
+```
+
+**Maximum value `$max`**
+
+```
+> db.user.aggregate([
+...     {
+...         $group: {
+...             _id: "$group_name",
+...             maximum_credits: {
+...                 $max: "$credits"
+...             }
+...         }
+...     }
+... ]);
+{ "_id" : "hobbyists", "maximum_credits" : 90 }
+{ "_id" : "researchers", "maximum_credits" : 240 }
+{ "_id" : "students", "maximum_credits" : 50 }
+{ "_id" : "journalists", "maximum_credits" : 180 }
+{ "_id" : "scientists", "maximum_credits" : 300 }
+{ "_id" : "bloggers", "maximum_credits" : 120 }
+```
+
+**Average `$avg`**
+
+```
+> db.user.aggregate([
+...     {
+...         $group: {
+...             _id: "$group_name",
+...             average_credits: {
+...                 $avg: "$credits"
+...             }
+...         }
+...     }
+... ]);
+{ "_id" : "hobbyists", "average_credits" : 75 }
+{ "_id" : "researchers", "average_credits" : 220 }
+{ "_id" : "students", "average_credits" : 40 }
+{ "_id" : "journalists", "average_credits" : 163.33333333333334 }
+{ "_id" : "scientists", "average_credits" : 275 }
+{ "_id" : "bloggers", "average_credits" : 102.5 }
+```
+
+**Standard deviation `$stdDevPop`**
+
+```
+> db.user.aggregate([
+...     {
+...         $group: {
+...             _id: "$group_name",
+...             standard_deviation_of_credits: {
+...                 $stdDevPop: "$credits"
+...             }
+...         }
+...     }
+... ]);
+{ "_id" : "hobbyists", "standard_deviation_of_credits" : 12.24744871391589 }
+{ "_id" : "researchers", "standard_deviation_of_credits" : 16.32993161855452 }
+{ "_id" : "students", "standard_deviation_of_credits" : 8.16496580927726 }
+{ "_id" : "journalists", "standard_deviation_of_credits" : 12.472191289246473 }
+{ "_id" : "scientists", "standard_deviation_of_credits" : 18.027756377319946 }
+{ "_id" : "bloggers", "standard_deviation_of_credits" : 14.79019945774904 }
+```
