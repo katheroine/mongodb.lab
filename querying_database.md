@@ -1,7 +1,7 @@
 [⌂ Home](../../README.md)
 [▲ Previous: Managing documents](managing_documents.md)
 
-## Querying databases
+## Querying database
 
 **Database preparation**
 
